@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { InitialState } from '../models/IStr';
 
-const initialState = {
-  btn_arr: [
+const initialState: InitialState = {
+  btnArr: [
     {
-      str1: [
+      str: [
         { id: 1, key: 'Q', buttonGrey: false },
         { id: 2, key: 'W', buttonGrey: false },
         { id: 3, key: 'E', buttonGrey: false },
@@ -17,7 +18,7 @@ const initialState = {
       ],
     },
     {
-      str2: [
+      str: [
         { id: 11, key: 'A', buttonGrey: false },
         { id: 12, key: 'S', buttonGrey: false },
         { id: 13, key: 'D', buttonGrey: false },
@@ -30,7 +31,7 @@ const initialState = {
       ],
     },
     {
-      str3: [
+      str: [
         { id: 20, key: 'Z', buttonGrey: false },
         { id: 21, key: 'X', buttonGrey: false },
         { id: 22, key: 'C', buttonGrey: false },
@@ -48,34 +49,17 @@ const typeSlice = createSlice({
   initialState,
   reducers: {
     changeButton(state, action) {
-      state.btn_arr.map((keyboard) => {
-        keyboard.str1?.map((str) => {
-          if (str.key === action.payload.toUpperCase()) {
-            str.buttonGrey = true;
-          }
-        });
-        keyboard.str2?.map((str) => {
-          if (str.key === action.payload.toUpperCase()) {
-            str.buttonGrey = true;
-          }
-        });
-        keyboard.str3?.map((str) => {
-          if (str.key === action.payload.toUpperCase()) {
-            str.buttonGrey = true;
+      state.btnArr.map((keyboard) => {
+        return keyboard.str.map((btn) => {
+          if (btn.key.toLowerCase() == action.payload.toLowerCase()) {
+            btn.buttonGrey = true;
           }
         });
       });
-      console.log(JSON.stringify(state.btn_arr));
     },
     unmountButton(state) {
-      state.btn_arr.map((keyboard) => {
-        keyboard.str1?.map((str) => {
-          str.buttonGrey = false;
-        });
-        keyboard.str2?.map((str) => {
-          str.buttonGrey = false;
-        });
-        keyboard.str3?.map((str) => {
+      state.btnArr.map((keyboard) => {
+        keyboard.str.map((str) => {
           str.buttonGrey = false;
         });
       });

@@ -1,13 +1,5 @@
 import styled from 'styled-components';
 
-export const KeyBoard = styled.div`
-  display: flex;
-  flex-direction: row;
-  max-width: 30vw;
-  justify-content: space-around;
-  margin-bottom: 0.05vh;
-`;
-
 export const Key = styled.div`
   padding: 1vw 2vh;
 
@@ -18,4 +10,9 @@ export const Key = styled.div`
 export const KeyBoardButton = styled.button`
   width: 7vw;
   height: 7vh;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
