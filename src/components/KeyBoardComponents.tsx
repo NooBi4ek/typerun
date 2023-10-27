@@ -16,7 +16,7 @@ const KeyBoard: React.FC = () => {
   useEffect(() => {
     document.addEventListener('keydown', onKey);
     return () => {
-      document.removeEventListener('keydow', onKey);
+      document.removeEventListener('keydown', onKey);
     };
   }, []);
   return (

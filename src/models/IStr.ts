@@ -5,6 +5,7 @@ export interface Str {
 }
 export interface InitialState {
   btnArr: Astr[];
+  text: string;
 }
 export interface Astr {
   str: Str[];

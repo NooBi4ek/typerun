@@ -42,6 +42,7 @@ const initialState: InitialState = {
       ],
     },
   ],
+  text: 'Hello world!',
 };
 
 const typeSlice = createSlice({
@@ -64,7 +65,18 @@ const typeSlice = createSlice({
         });
       });
     },
+    onKey(state, action) {
+      return console.log(
+        state.text
+          .split('')
+          .map((el) =>
+            el.toLowerCase() == action.payload.event.key.toLowerCase()
+              ? true
+              : false,
+          ),
+      );
+    },
   },
 });
-export const { changeButton, unmountButton } = typeSlice.actions;
+export const { changeButton, unmountButton, onKey } = typeSlice.actions;
 export default typeSlice.reducer;
