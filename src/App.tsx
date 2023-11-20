@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import TypeRunInput from './components/TypeRunInput.tsx';
 import styled from 'styled-components';
 import TypeRunText from './components/TypeRunText.tsx';
-import { useAppDispatch, useAppSelector } from './store/hooks.ts';
+import { useAppDispatch, useAppSelector } from './hooks.ts';
 import {
   handleGreyKeyBoardChange,
   handleTypeWord,
