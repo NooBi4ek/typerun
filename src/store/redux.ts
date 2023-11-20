@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import typeReducer from './typerun_slice.ts';
+import typeRunReducer from './typeRunSlice.ts';
 const store = configureStore({
   reducer: {
-    type: typeReducer,
+    typeRun: typeRunReducer,
   },
 });
 export default store;
