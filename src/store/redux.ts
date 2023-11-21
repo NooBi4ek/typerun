@@ -1,5 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import typeRunReducer from './typeRunSlice.ts';
+import typeRunReducer, { TypeRunInitialState } from './typeRunSlice.ts';
+
+export interface StoreType {
+  typeRun: TypeRunInitialState;
+}
+
 const store = configureStore({
   reducer: {
     typeRun: typeRunReducer,

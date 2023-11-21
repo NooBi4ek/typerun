@@ -7,7 +7,13 @@ interface Props {
 }
 
 const TypeRunInput: FC<Props> = ({ value, onChange }) => {
-  return <Input value={value} onChange={onChange} />;
+  return (
+    <Input
+      value={value}
+      onChange={onChange}
+      onPaste={(e) => e.preventDefault()}
+    />
+  );
 };
 
 export default TypeRunInput;

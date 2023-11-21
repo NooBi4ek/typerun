@@ -1,35 +1,45 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import TypeRunInput from './components/TypeRunInput.tsx';
 import styled from 'styled-components';
 import TypeRunText from './components/TypeRunText.tsx';
-import { useAppDispatch, useAppSelector } from './hooks.ts';
+import { useAppDispatch, useAppSelector } from './hooks/hooks.ts';
 import {
-  handleGreyKeyBoardChange,
+  getTypeRunIsError,
+  getTypeRunKeyBoard,
+  getTypeRunText,
+  getTypeRunTypeWordValue,
   handleTypeWord,
+  unMountKey,
 } from './store/typeRunSlice.ts';
 import TypeRunKeyBoard from './components/TypeRunKeyBoard.tsx';
 
 const App: FC = () => {
-  const typeWordValue = useAppSelector((state) => state.typeRun.typeWordValue);
-  const text = useAppSelector((state) => state.typeRun.text);
-  const keyboard = useAppSelector((state) => state.typeRun.keyboard);
+  const typeWordValue = useAppSelector(getTypeRunTypeWordValue);
+  const text = useAppSelector(getTypeRunText);
+  const keyboard = useAppSelector(getTypeRunKeyBoard);
+  const isError = useAppSelector(getTypeRunIsError);
 
   const disabledText = text.slice(0, typeWordValue.length);
   const enabledText = text.slice(typeWordValue.length, text.length);
 
   const dispatch = useAppDispatch();
 
-  const handleTypeChange = (e) => dispatch(handleTypeWord(e.target.value));
-
-  const handleGreyChange = (event) =>
-    dispatch(handleGreyKeyBoardChange(event.key));
+  const handleTypeChange = (e) => {
+    const keyBoardValue = e.target.value;
+    dispatch(handleTypeWord(keyBoardValue));
+    setTimeout(() => dispatch(unMountKey(keyBoardValue)), 300);
+  };
 
   return (
     <Wrapper>
       <Container>
         <TypeRunInput value={typeWordValue} onChange={handleTypeChange} />
-        <TypeRunText disabledText={disabledText} enabledText={enabledText} />
-        <TypeRunKeyBoard keyboard={keyboard} onKeyDown={handleGreyChange} />
+        <TypeRunText
+          disabledText={disabledText}
+          enabledText={enabledText}
+          isError={isError}
+        />
+        <TypeRunKeyBoard keyboard={keyboard} />
       </Container>
     </Wrapper>
   );

@@ -1,3 +1,9 @@
+export interface Key {
+  id: number;
+  key: string;
+  buttonGrey: boolean;
+}
+
 export const keyboard = [
   [
     { id: 1, key: 'Q', buttonGrey: false },
