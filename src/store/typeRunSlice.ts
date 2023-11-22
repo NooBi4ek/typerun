@@ -6,6 +6,7 @@ export interface TypeRunInitialState {
   keyboard: Key[][];
   text: string;
   isError: boolean;
+  symbolPerMinute: number;
   typeWordValue: string;
 }
 
@@ -13,6 +14,7 @@ const initialState: TypeRunInitialState = {
   keyboard,
   text: 'HHHHHHHHH',
   isError: false,
+  symbolPerMinute: 0,
   typeWordValue: '',
 };
 
@@ -50,6 +52,9 @@ export const typeRunSlice = createSlice({
       });
       state.isError = false;
     },
+    symbolsPerMinuteCount(state, action) {
+      state.symbolPerMinute = (state.text.length / action.payload) * 60;
+    },
   },
 });
 
@@ -58,8 +63,11 @@ export const getTypeRunKeyBoard = (state: StoreType) => state.typeRun.keyboard;
 export const getTypeRunTypeWordValue = (state: StoreType) =>
   state.typeRun.typeWordValue;
 export const getTypeRunIsError = (state: StoreType) => state.typeRun.isError;
+export const getTypeSymbolPerMinute = (state: StoreType) =>
+  state.typeRun.symbolPerMinute;
 
-export const { handleTypeWord, unMountKey } = typeRunSlice.actions;
+export const { handleTypeWord, unMountKey, symbolsPerMinuteCount } =
+  typeRunSlice.actions;
 
 export default typeRunSlice.reducer;
 

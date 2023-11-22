@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import TypeRunInput from './components/TypeRunInput.tsx';
 import styled from 'styled-components';
 import TypeRunText from './components/TypeRunText.tsx';
@@ -8,17 +8,22 @@ import {
   getTypeRunKeyBoard,
   getTypeRunText,
   getTypeRunTypeWordValue,
+  getTypeSymbolPerMinute,
   handleTypeWord,
+  symbolsPerMinuteCount,
   unMountKey,
 } from './store/typeRunSlice.ts';
 import TypeRunKeyBoard from './components/TypeRunKeyBoard.tsx';
+import TypeRunCounterSpeed from './components/TypeRunCounterSpeed.tsx';
 
 const App: FC = () => {
   const typeWordValue = useAppSelector(getTypeRunTypeWordValue);
   const text = useAppSelector(getTypeRunText);
   const keyboard = useAppSelector(getTypeRunKeyBoard);
   const isError = useAppSelector(getTypeRunIsError);
+  const symbolPerMinute = useAppSelector(getTypeSymbolPerMinute);
 
+  const [countSecond, setCountSecond] = useState<number>(0);
   const disabledText = text.slice(0, typeWordValue.length);
   const enabledText = text.slice(typeWordValue.length, text.length);
 
@@ -30,9 +35,21 @@ const App: FC = () => {
     setTimeout(() => dispatch(unMountKey(keyBoardValue)), 300);
   };
 
+  useEffect(() => {
+    if (text !== typeWordValue) {
+      setTimeout(() => setCountSecond(countSecond + 1), 1000);
+    } else {
+      dispatch(symbolsPerMinuteCount(countSecond));
+    }
+  }, [countSecond]);
+
   return (
     <Wrapper>
       <Container>
+        <TypeRunCounterSpeed
+          countSecond={countSecond}
+          symbolPerMinute={symbolPerMinute}
+        />
         <TypeRunInput value={typeWordValue} onChange={handleTypeChange} />
         <TypeRunText
           disabledText={disabledText}
