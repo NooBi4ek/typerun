@@ -10,6 +10,7 @@ const store = configureStore({
     typeRun: typeRunReducer,
   },
 });
+
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;

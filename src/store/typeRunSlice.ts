@@ -7,14 +7,16 @@ export interface TypeRunInitialState {
   text: string;
   isError: boolean;
   symbolPerMinute: number;
+  countSecond: number;
   typeWordValue: string;
 }
 
 const initialState: TypeRunInitialState = {
   keyboard,
-  text: 'HHHHHHHHH',
+  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   isError: false,
   symbolPerMinute: 0,
+  countSecond: 0,
   typeWordValue: '',
 };
 
@@ -27,7 +29,7 @@ export const typeRunSlice = createSlice({
       const lastLetter = inputValue.substring(inputValue.length - 1);
       state.typeWordValue = inputValue;
       console.log('lastLetter', lastLetter);
-      if (state.text.startsWith(state.typeWordValue) == false) {
+      if (!state.text.startsWith(state.typeWordValue)) {
         state.typeWordValue = state.typeWordValue.slice(0, -1);
         state.isError = true;
         return;
@@ -40,6 +42,7 @@ export const typeRunSlice = createSlice({
         );
       });
     },
+
     unMountKey(state, action) {
       const inputValue = action.payload;
       const lastLetter = inputValue.substring(inputValue.length - 1);
@@ -52,9 +55,6 @@ export const typeRunSlice = createSlice({
       });
       state.isError = false;
     },
-    symbolsPerMinuteCount(state, action) {
-      state.symbolPerMinute = (state.text.length / action.payload) * 60;
-    },
   },
 });
 
@@ -63,39 +63,7 @@ export const getTypeRunKeyBoard = (state: StoreType) => state.typeRun.keyboard;
 export const getTypeRunTypeWordValue = (state: StoreType) =>
   state.typeRun.typeWordValue;
 export const getTypeRunIsError = (state: StoreType) => state.typeRun.isError;
-export const getTypeSymbolPerMinute = (state: StoreType) =>
-  state.typeRun.symbolPerMinute;
 
-export const { handleTypeWord, unMountKey, symbolsPerMinuteCount } =
-  typeRunSlice.actions;
+export const { handleTypeWord, unMountKey } = typeRunSlice.actions;
 
 export default typeRunSlice.reducer;
-
-// for (let i = 0; i < text.length; i++) {
-
-//     if (text[i] === " ") {
-//       result.push(<span key={i}>&ndnjkd;</span>);
-//     } else {
-
-//       const isMatch = inputIndex < input.length && text[i] === input[inputIndex];
-
-//       result.push(
-//        <Text isMatch={isMatch}>{text[i]}</Text>
-//       );
-
-//     }
-//   }
-
-// const fullText = "hello world"
-// const inputText = "hello"
-
-// const disabledText = fullText.slice(0, inputText.length);
-// const text = fullText.slice(inputText.length, fullText.length);
-
-// <TextDisabled>{disabledText}</TextDisable>
-// <Text>{text}</Text>
-
-// 1 a => handleKeyDown => dispatch(changeColor(key)) => {
-//   keyboard.map(row => row.map(knopka => knopka.key === key ? {...knopka, isGrey: !knopka.isGrey} : {}))
-// }
-// 2
